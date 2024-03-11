@@ -1,0 +1,16 @@
+<nav class="navbar fixed-top">
+    <div class="container">
+      <a class="navbar-brand" *ngIf="!(playerService.hasLoggedPlayer$ | async)">Math Game App!</a>
+      <div *ngIf="(playerService.hasLoggedPlayer$ | async) && showBackToHomePage">
+        <button class="btn btn-outline-success" (click)="goToHomePage()">Back to Home</button>
+      </div>
+      <div *ngIf="(playerService.hasLoggedPlayer$ | async) && !showBackToHomePage">
+        <button class="btn btn-outline-success" (click)="goToGame()">Play Game</button>
+      </div>
+      <div *ngIf="playerService.hasLoggedPlayer$ | async as currentUser">
+        <button class="btn btn-outline-success" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  
+  </nav>
+  

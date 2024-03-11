@@ -1,0 +1,6 @@
+@MathGame_Api_HostAddress = http://localhost:5293
+
+GET {{MathGame_Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

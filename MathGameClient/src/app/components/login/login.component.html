@@ -1,0 +1,57 @@
+<div class="card-container">
+    <form
+      class="wrapper"
+      *ngIf="!(playerService.hasLoggedPlayer$ | async)"
+      #loginForm="ngForm"
+      (ngSubmit)="login()"
+      autocomplete="off"
+    >
+      <h3 class="title-login text-center">Login</h3>
+      <div class="form-group">
+        <hr class="line_login" />
+        <label for="email" class="labels">Enter Your Email</label>
+        <input
+          name="email"
+          [(ngModel)]="loginModel.email"
+          class="form-control ng-untouched ng-pristine ng-invalid"
+          type="email"
+          placeholder="Email"
+          pattern="[A-Za-z0-9.%-]+@[A-Za-z0-9.%-]+\.[a-z]{2,3}"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password" class="labels">Enter Your Password</label>
+        <input
+          name="password"
+          [(ngModel)]="loginModel.password"
+          class="form-control ng-untouched ng-pristine ng-invalid"
+          type="password"
+          placeholder="Password"
+          pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <button
+          class="btn btn-outline-success"
+          type="submit"
+          [disabled]="!loginForm.form.valid || showSpinner"
+        >
+          Login
+        </button>
+        <button
+          class="btn btn-outline-success"
+          type="button"
+          routerLink="/register"
+        >
+          Register
+        </button>
+      </div>
+  
+      <div class="spinner-container" *ngIf="showSpinner">
+        <app-spinner></app-spinner>
+      </div>
+    </form>
+  </div>

@@ -1,0 +1,42 @@
+<div class="register_container">
+    <form class="register_wrapper" #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+      <h3 class="register-title text-center">Register</h3>
+      <hr class="line_register" />
+  
+      <div class="form-group">
+        <label for="firstName" class="labels_register">Enter Your First Name</label>
+        <input type="text" class="form-control" name="firstName" [(ngModel)]="registerModel.firstName" placeholder="First Name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="lastName" class="labels_register">Enter Your Last Name</label>
+        <input type="text" class="form-control" name="lastName" [(ngModel)]="registerModel.lastName" placeholder="Last Name" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="email" class="labels_register">Enter Your Email</label>
+        <input type="email" class="form-control" name="email" [(ngModel)]="registerModel.email" placeholder="Email" pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}(?:\.[a-zA-Z]{2,})?" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="password" class="labels_register">Enter Your Password</label>
+        <input type="password" class="form-control" name="password" [(ngModel)]="registerModel.password" placeholder="Password" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="confirmPassword" class="labels_register">Confirm Your Password</label>
+        <input type="password" class="form-control" name="confirmPassword" [(ngModel)]="registerModel.confirmPassword" placeholder="Confirm Password" pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" required />
+      </div>
+  
+      <div class="form-group text-center">
+        <button class="btn btn-outline-success" type="submit" [disabled]="!registerForm.valid || requestIsLoading">Register</button>
+        <button class="btn btn-outline-success" type="button" (click)="cancel()">Cancel</button>
+  
+        <div *ngIf="registerForm.dirty && passwordsDontMatch !== ''" class="alert alert-danger">
+          {{ passwordsDontMatch }}
+        </div>
+  
+        <app-spinner *ngIf="requestIsLoading"></app-spinner>
+      </div>
+    </form>
+  </div>

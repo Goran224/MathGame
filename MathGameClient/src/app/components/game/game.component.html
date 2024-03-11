@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="table-container">
+    <h1>Your current score is : {{playerScore}}</h1>
+    <h2>Number of currently online players : {{onlinePlayers}}</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Number</th>
+          <th>Expression</th>
+          <th>Your Answer</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table rows will be generated dynamically -->
+        <tr *ngFor="let expression of gameExpressions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ expression.mathExpression }}</td>
+          <td>
+            <ng-container *ngIf="expression.answerStatus !== AnswerStatus.Unanswered && expression.answeredFromPlayer === playerInfo?.email">
+              {{ expression.answer }}
+            </ng-container>
+            <ng-container *ngIf="expression.answerStatus !== AnswerStatus.Unanswered && expression.answeredFromPlayer !== playerInfo?.email">
+              MISSED
+            </ng-container>
+            <ng-container *ngIf="expression.answerStatus === AnswerStatus.Unanswered">
+              <input type="text" (keyup.enter)="guessExpression($event, expression.id)" placeholder="Enter your answer">
+            </ng-container>
+          </td>
+          <td>
+            <!-- Check AnswerStatus -->
+            <ng-container *ngIf="expression.answerStatus === AnswerStatus.Unanswered">Pending</ng-container>
+            <ng-container *ngIf="expression.answerStatus === AnswerStatus.Correct">OK</ng-container>
+            <ng-container *ngIf="expression.answerStatus === AnswerStatus.False">Failed</ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
