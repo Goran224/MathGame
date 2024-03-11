@@ -3,10 +3,7 @@ import { ErrorMessages } from 'src/app/helpers/errorMessages';
 import { LoginModel } from 'src/app/models/loginModel';
 import { PlayerService } from 'src/app/services/player.service';
 import { ToastrService } from 'ngx-toastr';
-import { Player } from 'src/app/models/player';
-import { environment } from 'src/environments/environment';
 import { ServiceResponse } from 'src/app/models/serviceResponse';
-import { catchError, finalize, tap, throwError } from 'rxjs';
 import { LoginResponseModel } from 'src/app/models/loginResponseModel';
 import { Router } from '@angular/router';
 
@@ -36,12 +33,6 @@ export class LoginComponent implements OnInit {
     this.showSpinner = true;
     this.playerService
       .loginPlayer(this.loginModel)
-      .pipe(
-        catchError(error => {
-          this.showError(error.message || ErrorMessages.genericUnknownError);
-          return throwError(error); 
-        })
-      )
       .subscribe((response: ServiceResponse<LoginResponseModel>) => {
         if (response.success && response.data) {
           const player: LoginResponseModel = response.data;
@@ -62,9 +53,5 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('home');
       this.toastr.success(ErrorMessages.logInSuccess, 'Success');
     }
-  }
-
-  private showError(errorMessage: string) {
-    this.toastr.error(errorMessage, 'Error');
   }
 }

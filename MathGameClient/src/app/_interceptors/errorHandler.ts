@@ -25,18 +25,15 @@ export class ErrorInterceptor implements HttpInterceptor {
         let errorMessage = ErrorMessages.genericUnknownError;
 
         if (error.status === 0) {
-
           errorMessage = ErrorMessages.serverError;
         } else {
-          if (error.error instanceof ErrorEvent) {
-
+          if (error.error && error.error.errorMessage) {
+            errorMessage = error.error.errorMessage;
+          } else if (error.error instanceof ErrorEvent) {
             errorMessage = `Error: ${error.error.message}`;
           } else {
             switch (error.status) {
               case 400:
-                errorMessage = ErrorMessages.unauthorizedAccess;
-                this.router.navigateByUrl('/');
-                break;
               case 401:
                 errorMessage = ErrorMessages.unauthorizedAccess;
                 this.router.navigateByUrl('/');

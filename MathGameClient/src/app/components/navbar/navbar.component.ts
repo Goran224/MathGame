@@ -41,8 +41,6 @@ export class NavbarComponent implements OnInit {
         next: response => {
           if (response.success) {
             this.toastr.success(ErrorMessages.logoutSuccess);
-          } else {
-            this.toastr.error(response.errorMessage || ErrorMessages.genericUnknownError);
           }
         }
       });
