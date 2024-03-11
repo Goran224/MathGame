@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
       .loginPlayer(this.loginModel)
       .pipe(
         catchError(error => {
-          console.error('Error logging in:', error);
           this.showError(error.message || ErrorMessages.genericUnknownError);
           return throwError(error); 
         })
