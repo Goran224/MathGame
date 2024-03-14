@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   }
 
   getCurrentRouteName(): string {
-    const currentUrl = this.router.url;
+    const currentUrl = window.location.href;
     const routeParts = currentUrl.split('/'); 
     return routeParts[routeParts.length - 1];
   }

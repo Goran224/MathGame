@@ -10,13 +10,13 @@ import { map } from 'rxjs/operators';
 export class AuthGuard implements CanActivate {
   constructor(private playerService: PlayerService, private router: Router) {}
 
-  canActivate(): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(): Observable<boolean> {
     return this.playerService.isAuthenticated().pipe(
-      map(isAuthenticated => {
+      map((isAuthenticated: boolean) => {
         if (isAuthenticated) {
-          return true;
+          return true; 
         } else {
-          this.router.navigate(['/login']); 
+          this.router.navigateByUrl(''); 
           return false; 
         }
       })
